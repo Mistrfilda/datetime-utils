@@ -1,0 +1,47 @@
+{
+	"name": "mistrfilda/datetime",
+	"license": "MIT",
+	"description": "Simple datetime utils",
+	"require": {
+		"php": ">=7.4",
+		"nette/utils": "^3.0"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "^0.12",
+		"phpstan/extension-installer": "^1.0",
+		"phpstan/phpstan-strict-rules": "^0.12",
+		"phpstan/phpstan-mockery": "^0.12.3",
+		"tracy/tracy": "^2.6",
+		"roave/security-advisories": "dev-master",
+		"mockery/mockery": "^1.2",
+		"symplify/easy-coding-standard-prefixed": "~7.2.0",
+		"php-parallel-lint/php-parallel-lint": "^1.2",
+		"php-parallel-lint/php-console-highlighter": "^0.5.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Mistrfilda\\Datetime\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Mistrfilda\\Datetime\\Test\\": "tests"
+		}
+	},
+	"scripts": {
+		"comload": "composer dump-autoload -o",
+		"stan": "vendor/bin/phpstan analyse -l max -c phpstan.neon src tests --ansi",
+		"lint": "vendor/bin/parallel-lint --colors src/ tests/",
+		"cs": "vendor/bin/ecs -c ecs.yaml check src tests --ansi",
+		"cs-fix": "vendor/bin/ecs -c ecs.yaml check src tests --fix --ansi",
+		"build-all-local": [
+			"@comload",
+			"@build-all"
+		],
+		"build-all": [
+			"@lint",
+			"@stan",
+			"@cs"
+		]
+	}
+}
