@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Mistrfilda\Datetime;
+namespace Mistrfilda\Datetime;
 
 use DateTimeImmutable;
+use Throwable;
 
 class DatetimeFactory
 {
@@ -30,7 +31,11 @@ class DatetimeFactory
 
 	public function createFromTimestamp(int $timestamp): DateTimeImmutable
 	{
-		return new DateTimeImmutable('@' . $timestamp);
+		try {
+			return new DateTimeImmutable('@' . $timestamp);
+		} catch (Throwable $e) {
+			throw new DatetimeException($e->getMessage(), $e->getCode(), $e);
+		}
 	}
 
 	public function createDatetimeFromMysqlFormat(

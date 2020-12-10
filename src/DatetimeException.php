@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Mistrfilda\Datetime;
+namespace Mistrfilda\Datetime;
 
 use Exception;
 

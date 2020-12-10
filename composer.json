@@ -27,7 +27,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Mistrfilda\\Datetime\\Test\\": "tests"
+			"Mistrfilda\\Datetime\\Tests\\": "tests"
 		}
 	},
 	"scripts": {
@@ -36,6 +36,7 @@
 		"lint": "vendor/bin/parallel-lint --colors src/ tests/",
 		"cs": "vendor/bin/ecs -c ecs.yaml check src tests --ansi",
 		"cs-fix": "vendor/bin/ecs -c ecs.yaml check src tests --fix --ansi",
+		"test-unit": "vendor/bin/phpunit --testsuite unit --colors=always --debug",
 		"build-all-local": [
 			"@comload",
 			"@build-all"
@@ -43,7 +44,8 @@
 		"build-all": [
 			"@lint",
 			"@stan",
-			"@cs"
+			"@cs",
+			"@test-unit"
 		]
 	}
 }
