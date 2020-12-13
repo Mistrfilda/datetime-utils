@@ -71,6 +71,10 @@ parameters:
 
     indentation: 'tab'
 
+    skip:
+        SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff:
+            - 'src/Types/DatetimeImmutable.php'
+
     file_extensions:
         - 'php'
         - 'phpt'
