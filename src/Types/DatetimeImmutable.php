@@ -85,6 +85,36 @@ class DatetimeImmutable extends \DateTimeImmutable
 		return $this->modify(sprintf('+ %s years', $years));
 	}
 
+	public function deductYearsFromDatetime(int $years): self
+	{
+		return $this->modify(sprintf('- %s years', $years));
+	}
+
+	public function deductHoursFromDatetime(int $hours): self
+	{
+		return $this->modify(sprintf('- %s hours', $hours));
+	}
+
+	public function deductMinutesFromDatetime(int $minutes): self
+	{
+		return $this->modify(sprintf('- %s minutes', $minutes));
+	}
+
+	public function deductSecondsFromDatetime(int $seconds): self
+	{
+		return $this->modify(sprintf('- %s seconds', $seconds));
+	}
+
+	public function deductMonthsFromDatetime(int $months): self
+	{
+		return $this->modify(sprintf('- %s months', $months));
+	}
+
+	public function deductDaysFromDatetime(int $days): self
+	{
+		return $this->modify(sprintf('- %s days', $days));
+	}
+
 	public function addToDatetime(
 		int $hours = 0,
 		int $minutes = 0,
