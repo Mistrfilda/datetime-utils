@@ -15,6 +15,18 @@ class DatetimeFactory
 
 	public const DEFAULT_MYSQL_DATETIME_FORMAT = 'Y-m-d H:i:s';
 
+	public static function createFromFormat(
+		string $datetime,
+		string $mysqlDatetimeFormat = self::DEFAULT_MYSQL_DATETIME_FORMAT
+	): DateTimeImmutable {
+		$parsedDatetime = DateTimeImmutable::createFromFormat($mysqlDatetimeFormat, $datetime);
+		if ($parsedDatetime === false) {
+			throw new DatetimeException('Can\'t create datetime from specified value and format');
+		}
+
+		return new DatetimeImmutable('@' . $parsedDatetime->getTimestamp());
+	}
+
 	public function createNow(): DatetimeImmutable
 	{
 		return new DateTimeImmutable();
@@ -35,18 +47,6 @@ class DatetimeFactory
 	}
 
 	public function createDatetimeFromMysqlFormat(
-		string $datetime,
-		string $mysqlDatetimeFormat = self::DEFAULT_MYSQL_DATETIME_FORMAT
-	): DateTimeImmutable {
-		$parsedDatetime = DateTimeImmutable::createFromFormat($mysqlDatetimeFormat, $datetime);
-		if ($parsedDatetime === false) {
-			throw new DatetimeException('Can\'t create datetime from specified value and format');
-		}
-
-		return new DatetimeImmutable('@' . $parsedDatetime->getTimestamp());
-	}
-
-	public static function createFromFormat(
 		string $datetime,
 		string $mysqlDatetimeFormat = self::DEFAULT_MYSQL_DATETIME_FORMAT
 	): DateTimeImmutable {

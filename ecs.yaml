@@ -74,6 +74,10 @@ parameters:
     skip:
         SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff:
             - 'src/Types/DatetimeImmutable.php'
+        SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff:
+            - 'src/Doctrine/DatetimeImmutableType.php'
+        SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff:
+            - 'src/Doctrine/DatetimeImmutableType.php'
 
     file_extensions:
         - 'php'

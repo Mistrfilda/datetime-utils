@@ -1,22 +1,17 @@
 <?php
 
-declare(strict_types = 1);
-
+declare(strict_types=1);
 
 namespace Mistrfilda\Datetime\Doctrine;
 
-
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
+use Doctrine\DBAL\Types\DateTimeImmutableType as DoctrineDatetimeImmutableType;
 use Mistrfilda\Datetime\DatetimeFactory;
 use Mistrfilda\Datetime\Types\DatetimeImmutable;
 
-
-class DatetimeImmutableType extends \Doctrine\DBAL\Types\DateTimeImmutableType
+class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 {
-	/**
-	 * {@inheritdoc}
-	 */
 	public function convertToDatabaseValue($value, AbstractPlatform $platform)
 	{
 		if ($value === null) {
@@ -34,9 +29,6 @@ class DatetimeImmutableType extends \Doctrine\DBAL\Types\DateTimeImmutableType
 		);
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function convertToPHPValue($value, AbstractPlatform $platform)
 	{
 		if ($value === null || $value instanceof DateTimeImmutable) {
