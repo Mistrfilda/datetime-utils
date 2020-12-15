@@ -45,4 +45,16 @@ class DatetimeFactory
 
 		return new DatetimeImmutable('@' . $parsedDatetime->getTimestamp());
 	}
+
+	public static function createFromFormat(
+		string $datetime,
+		string $mysqlDatetimeFormat = self::DEFAULT_MYSQL_DATETIME_FORMAT
+	): DateTimeImmutable {
+		$parsedDatetime = DateTimeImmutable::createFromFormat($mysqlDatetimeFormat, $datetime);
+		if ($parsedDatetime === false) {
+			throw new DatetimeException('Can\'t create datetime from specified value and format');
+		}
+
+		return new DatetimeImmutable('@' . $parsedDatetime->getTimestamp());
+	}
 }
