@@ -35,6 +35,6 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 			return $value;
 		}
 
-		return DatetimeFactory::createFromFormat($platform->getDateTimeFormatString(), $value);
+		return DatetimeFactory::createFromFormat( $value, $platform->getDateTimeFormatString());
 	}
 }
