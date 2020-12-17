@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Mistrfilda\Datetime\Doctrine;
 
+use DatetimeImmutable as BuiltInDatetimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType as DoctrineDatetimeImmutableType;
+use Mistrfilda\Datetime\DatetimeException;
 use Mistrfilda\Datetime\DatetimeFactory;
 use Mistrfilda\Datetime\Types\DatetimeImmutable;
 
@@ -18,7 +20,7 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 			return $value;
 		}
 
-		if ($value instanceof DatetimeImmutable) {
+		if ($value instanceof BuiltInDatetimeImmutable) {
 			return $value->format($platform->getDateTimeFormatString());
 		}
 
@@ -35,6 +37,14 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 			return $value;
 		}
 
-		return DatetimeFactory::createFromFormat( $value, $platform->getDateTimeFormatString());
+		try {
+			return DatetimeFactory::createFromFormat($value, $platform->getDateTimeFormatString());
+		} catch (DatetimeException $e) {
+			throw ConversionException::conversionFailedFormat(
+				$value,
+				$this->getName(),
+				$platform->getDateTimeFormatString()
+			);
+		}
 	}
 }
