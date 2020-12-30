@@ -12,6 +12,10 @@ class Timezone
 
 	public const PRAGUE = 'Europe/Prague';
 
+	public const AMSTERDAM = 'Europe/Amsterdam';
+
+	public const WARSAW = 'Europe/Warsaw';
+
 	public static function createTimezone(string $zone): DateTimeZone
 	{
 		return new DateTimeZone($zone);
