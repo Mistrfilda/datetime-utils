@@ -30,5 +30,8 @@ jobs:
             -   name: Install Composer dependencies
                 run: |
                     composer install --no-progress --prefer-dist --optimize-autoloader --ansi
+            -   name: Create temp dir for tools
+                run: |
+                    mkdir tmp
             -   name: Run checks
                 run: composer build-all
