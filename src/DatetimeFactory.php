@@ -1,15 +1,16 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime;
 
 use Mistrfilda\Datetime\Timezone\Timezone;
-use Mistrfilda\Datetime\Types\DatetimeImmutable;
+use Mistrfilda\Datetime\Types\DateTimeImmutable;
 use Throwable;
 
 class DatetimeFactory
 {
+
 	public const DEFAULT_DATETIME_FORMAT = 'Y-m-d H:i:s';
 
 	public const DEFAULT_DATE_FORMAT = 'Y-m-d';
@@ -19,16 +20,19 @@ class DatetimeFactory
 	public static function createFromFormat(
 		string $datetime,
 		string $format = self::DEFAULT_MYSQL_DATETIME_FORMAT
-	): DateTimeImmutable {
+	): DateTimeImmutable
+	{
 		$parsedDatetime = DateTimeImmutable::createFromFormat($format, $datetime);
 		if ($parsedDatetime === false) {
 			throw new DatetimeException('Can\'t create datetime from specified value and format');
 		}
 
-		return (new DatetimeImmutable('@' . $parsedDatetime->getTimestamp()))->setTimezone($parsedDatetime->getTimezone());
+		return (new DateTimeImmutable('@' . $parsedDatetime->getTimestamp()))->setTimezone(
+			$parsedDatetime->getTimezone(),
+		);
 	}
 
-	public function createNow(): DatetimeImmutable
+	public function createNow(): DateTimeImmutable
 	{
 		return new DateTimeImmutable();
 	}
@@ -50,12 +54,16 @@ class DatetimeFactory
 	public function createDatetimeFromMysqlFormat(
 		string $datetime,
 		string $mysqlDatetimeFormat = self::DEFAULT_MYSQL_DATETIME_FORMAT
-	): DateTimeImmutable {
+	): DateTimeImmutable
+	{
 		$parsedDatetime = DateTimeImmutable::createFromFormat($mysqlDatetimeFormat, $datetime);
 		if ($parsedDatetime === false) {
 			throw new DatetimeException('Can\'t create datetime from specified value and format');
 		}
 
-		return (new DatetimeImmutable('@' . $parsedDatetime->getTimestamp()))->setTimezone($parsedDatetime->getTimezone());
+		return (new DateTimeImmutable('@' . $parsedDatetime->getTimestamp()))->setTimezone(
+			$parsedDatetime->getTimezone(),
+		);
 	}
+
 }

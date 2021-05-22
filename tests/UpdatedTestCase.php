@@ -1,15 +1,18 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Tests;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Throwable;
+use function get_class;
+use function sprintf;
 
 abstract class UpdatedTestCase extends TestCase
 {
+
 	/**
 	 * Asserts that the given callback throws the given exception.
 	 *
@@ -21,7 +24,8 @@ abstract class UpdatedTestCase extends TestCase
 		callable $callback,
 		string $expectClass,
 		?string $message = null
-	): void {
+	): void
+	{
 		try {
 			$callback();
 		} catch (Throwable $exception) {
@@ -46,13 +50,14 @@ abstract class UpdatedTestCase extends TestCase
 				sprintf(
 					'Exception %s - %s occured while calling noError assertion',
 					get_class($exception),
-					$exception->getMessage()
-				)
+					$exception->getMessage(),
+				),
 			);
 		}
 
 		/**
 		 * Ignore, we know that this value is always true, but there must be some assertion
+		 *
 		 * @phpstan-ignore-next-line
 		 */
 		self::assertTrue(true);
@@ -61,8 +66,10 @@ abstract class UpdatedTestCase extends TestCase
 	protected static function assertDatetimeImmutable(
 		DateTimeImmutable $expected,
 		DateTimeImmutable $actual
-	): void {
+	): void
+	{
 		self::assertSame($expected->getTimestamp(), $actual->getTimestamp());
 		self::assertSame($expected->getTimezone()->getName(), $actual->getTimezone()->getName());
 	}
+
 }

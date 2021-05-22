@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Tests\Unit\Doctrine;
 
@@ -13,6 +13,8 @@ use Mistrfilda\Datetime\Tests\Unit\BaseUnitTest;
 
 class DoctrineDatetimeTypeTest extends BaseUnitTest
 {
+
+	// phpcs:disable SlevomatCodingStandard.Files.LineLength.LineTooLong
 	protected AbstractPlatform $platform;
 
 	public function testDateTimeImmutableType(): void
@@ -22,11 +24,11 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 		$dbValue = $type->convertToDatabaseValue($this->now, $this->platform);
 		self::assertSame(
 			$this->now->format($this->platform->getDateTimeFormatString()),
-			$dbValue
+			$dbValue,
 		);
 
 		self::assertNull(
-			$type->convertToDatabaseValue(null, $this->platform)
+			$type->convertToDatabaseValue(null, $this->platform),
 		);
 
 		self::assertException(
@@ -34,12 +36,12 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 				$type->convertToDatabaseValue('12', $this->platform);
 			},
 			ConversionException::class,
-			'Could not convert PHP value \'12\' to type datetime_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\DatetimeImmutable'
+			'Could not convert PHP value \'12\' to type datetime_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\DateTimeImmutable',
 		);
 
 		$datetimeValue = $type->convertToPHPValue(
 			$this->now->format($this->platform->getDateTimeFormatString()),
-			$this->platform
+			$this->platform,
 		);
 
 		self::assertDatetimeImmutable($this->now, $datetimeValue);
@@ -50,7 +52,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 				$type->convertToPHPValue('12', $this->platform);
 			},
 			ConversionException::class,
-			'Could not convert database value "12" to Doctrine Type datetime_immutable. Expected format: Y-m-d H:i:s'
+			'Could not convert database value "12" to Doctrine Type datetime_immutable. Expected format: Y-m-d H:i:s',
 		);
 	}
 
@@ -61,11 +63,11 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 		$dbValue = $type->convertToDatabaseValue($this->now, $this->platform);
 		self::assertSame(
 			$this->now->format($this->platform->getDateFormatString()),
-			$dbValue
+			$dbValue,
 		);
 
 		self::assertNull(
-			$type->convertToDatabaseValue(null, $this->platform)
+			$type->convertToDatabaseValue(null, $this->platform),
 		);
 
 		self::assertException(
@@ -73,12 +75,12 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 				$type->convertToDatabaseValue('12', $this->platform);
 			},
 			ConversionException::class,
-			'Could not convert PHP value \'12\' to type datetime_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\DatetimeImmutable'
+			'Could not convert PHP value \'12\' to type datetime_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\DateTimeImmutable',
 		);
 
 		$datetimeValue = $type->convertToPHPValue(
 			$this->now->format($this->platform->getDateFormatString()),
-			$this->platform
+			$this->platform,
 		);
 
 		self::assertDatetimeImmutable($this->now, $datetimeValue);
@@ -89,7 +91,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 				$type->convertToPHPValue('12', $this->platform);
 			},
 			ConversionException::class,
-			'Could not convert database value "12" to Doctrine Type datetime_immutable. Expected format: Y-m-d'
+			'Could not convert database value "12" to Doctrine Type datetime_immutable. Expected format: Y-m-d',
 		);
 	}
 
@@ -98,4 +100,6 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 		parent::setUp();
 		$this->platform = new MySQLPlatform();
 	}
+	// phpcs:enable SlevomatCodingStandard.Files.LineLength.LineTooLong
+
 }

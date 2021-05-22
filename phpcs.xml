@@ -1,0 +1,43 @@
+<ruleset
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+    <!-- Show only relevant part of path -->
+    <arg name="basepath" value="./"/>
+
+    <!-- Configure cache -->
+    <arg name="cache" value="./tmp/codesniffer.dat"/>
+
+    <!-- Import coding-standard -->
+    <rule ref="./vendor/orisai/coding-standard/src/ruleset-7.4.xml">
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix"/>
+        <exclude name="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator.RequiredNumericLiteralSeparator"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn.UselessIfCondition"/>
+        <exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion"/>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
+        <properties>
+            <property name="allowFallbackGlobalFunctions" value="true"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property name="declareOnFirstLine" value="false"/>
+            <property name="linesCountBeforeDeclare" value="1"/>
+            <property name="linesCountAfterDeclare" value="1"/>
+            <property name="spacesCountAroundEqualsSign" value="1"/>
+        </properties>
+    </rule>
+
+    <!-- Configure PSR-4 rule -->
+    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+        <properties>
+            <property name="rootNamespaces" type="array">
+                <element key="src" value="Mistrfilda\Datetime"/>
+                <element key="tests" value="Mistrfilda\Datetime\Tests"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

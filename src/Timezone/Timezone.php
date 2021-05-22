@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Timezone;
 
@@ -8,6 +8,7 @@ use DateTimeZone;
 
 class Timezone
 {
+
 	public const UTC = 'UTC';
 
 	public const PRAGUE = 'Europe/Prague';
@@ -30,4 +31,5 @@ class Timezone
 	{
 		return new DateTimeZone(self::PRAGUE);
 	}
+
 }

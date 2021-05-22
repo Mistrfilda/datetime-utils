@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Holiday;
 
@@ -8,14 +8,13 @@ use DateTimeImmutable;
 
 class CzechHoliday
 {
+
 	private string $name;
 
 	private DateTimeImmutable $date;
 
-	public function __construct(
-		string $name,
-		DateTimeImmutable $date
-	) {
+	public function __construct(string $name, DateTimeImmutable $date)
+	{
 		$this->name = $name;
 		$this->date = $date->setTime(0, 0, 0, 0);
 	}
@@ -34,4 +33,5 @@ class CzechHoliday
 	{
 		return $this->date->getTimestamp();
 	}
+
 }

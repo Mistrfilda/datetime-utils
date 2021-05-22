@@ -1,19 +1,27 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Doctrine;
 
+use DateTime;
 use DatetimeImmutable as BuiltInDatetimeImmutable;
+use DateTimeInterface;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType as DoctrineDatetimeImmutableType;
 use Mistrfilda\Datetime\DatetimeException;
 use Mistrfilda\Datetime\DatetimeFactory;
-use Mistrfilda\Datetime\Types\DatetimeImmutable;
+use Mistrfilda\Datetime\Types\DateTimeImmutable;
 
 class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 {
+
+	/**
+	 * @param mixed $value
+	 * @return mixed|string|null
+	 * @throws ConversionException
+	 */
 	public function convertToDatabaseValue($value, AbstractPlatform $platform)
 	{
 		if ($value === null) {
@@ -27,10 +35,15 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 		throw ConversionException::conversionFailedInvalidType(
 			$value,
 			$this->getName(),
-			['null', DateTimeImmutable::class]
+			['null', DateTimeImmutable::class],
 		);
 	}
 
+	/**
+	 * @param mixed $value
+	 * @return DateTime|BuiltInDatetimeImmutable|DateTimeInterface|DateTimeImmutable|mixed|null
+	 * @throws ConversionException
+	 */
 	public function convertToPHPValue($value, AbstractPlatform $platform)
 	{
 		if ($value === null || $value instanceof DateTimeImmutable) {
@@ -43,8 +56,9 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 			throw ConversionException::conversionFailedFormat(
 				$value,
 				$this->getName(),
-				$platform->getDateTimeFormatString()
+				$platform->getDateTimeFormatString(),
 			);
 		}
 	}
+
 }
