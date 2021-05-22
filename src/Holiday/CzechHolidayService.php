@@ -176,14 +176,14 @@ class CzechHolidayService
 		return $this->checkDate($parsedDate, $year);
 	}
 
-	public function getCzechHolidayByDatetime(DateTimeImmutable $date): ?CzechHoliday
+	public function getCzechHolidayByDatetime(DateTimeImmutable $date): CzechHoliday|null
 	{
 		$parsedDate = $date->setTime(0, 0, 0, 0);
 
 		return $this->getCzechHoliday($parsedDate, (int) $parsedDate->format('Y'));
 	}
 
-	public function getCzechHolidayByDayMonthYear(int $day, int $month, int $year): ?CzechHoliday
+	public function getCzechHolidayByDayMonthYear(int $day, int $month, int $year): CzechHoliday|null
 	{
 		$parsedDate = (new DateTimeImmutable())
 			->setTime(0, 0, 0, 0)
@@ -192,7 +192,7 @@ class CzechHolidayService
 		return $this->getCzechHoliday($parsedDate, $year);
 	}
 
-	private function getCzechHoliday(DateTimeImmutable $parsedDate, int $year): ?CzechHoliday
+	private function getCzechHoliday(DateTimeImmutable $parsedDate, int $year): CzechHoliday|null
 	{
 		$holidays = $this->getHolidays($year);
 		if (array_key_exists($parsedDate->getTimestamp(), $holidays)) {

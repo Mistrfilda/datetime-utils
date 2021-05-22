@@ -7,7 +7,6 @@ namespace Mistrfilda\Datetime\Tests;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Throwable;
-use function get_class;
 use function sprintf;
 
 abstract class UpdatedTestCase extends TestCase
@@ -23,7 +22,7 @@ abstract class UpdatedTestCase extends TestCase
 	protected static function assertException(
 		callable $callback,
 		string $expectClass,
-		?string $message = null
+		string|null $message = null,
 	): void
 	{
 		try {
@@ -49,7 +48,7 @@ abstract class UpdatedTestCase extends TestCase
 			self::fail(
 				sprintf(
 					'Exception %s - %s occured while calling noError assertion',
-					get_class($exception),
+					$exception::class,
 					$exception->getMessage(),
 				),
 			);
@@ -65,7 +64,7 @@ abstract class UpdatedTestCase extends TestCase
 
 	protected static function assertDatetimeImmutable(
 		DateTimeImmutable $expected,
-		DateTimeImmutable $actual
+		DateTimeImmutable $actual,
 	): void
 	{
 		self::assertSame($expected->getTimestamp(), $actual->getTimestamp());

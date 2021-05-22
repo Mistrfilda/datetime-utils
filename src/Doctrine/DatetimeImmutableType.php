@@ -4,9 +4,7 @@ declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Doctrine;
 
-use DateTime;
 use DatetimeImmutable as BuiltInDatetimeImmutable;
-use DateTimeInterface;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType as DoctrineDatetimeImmutableType;
@@ -18,11 +16,9 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 {
 
 	/**
-	 * @param mixed $value
-	 * @return mixed|string|null
 	 * @throws ConversionException
 	 */
-	public function convertToDatabaseValue($value, AbstractPlatform $platform)
+	public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed
 	{
 		if ($value === null) {
 			return $value;
@@ -40,11 +36,9 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 	}
 
 	/**
-	 * @param mixed $value
-	 * @return DateTime|BuiltInDatetimeImmutable|DateTimeInterface|DateTimeImmutable|mixed|null
 	 * @throws ConversionException
 	 */
-	public function convertToPHPValue($value, AbstractPlatform $platform)
+	public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed
 	{
 		if ($value === null || $value instanceof DateTimeImmutable) {
 			return $value;
@@ -52,7 +46,7 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 
 		try {
 			return DatetimeFactory::createFromFormat($value, $platform->getDateTimeFormatString());
-		} catch (DatetimeException $e) {
+		} catch (DatetimeException) {
 			throw ConversionException::conversionFailedFormat(
 				$value,
 				$this->getName(),

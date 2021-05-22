@@ -19,7 +19,7 @@ class DatetimeFactory
 
 	public static function createFromFormat(
 		string $datetime,
-		string $format = self::DEFAULT_MYSQL_DATETIME_FORMAT
+		string $format = self::DEFAULT_MYSQL_DATETIME_FORMAT,
 	): DateTimeImmutable
 	{
 		$parsedDatetime = DateTimeImmutable::createFromFormat($format, $datetime);
@@ -53,7 +53,7 @@ class DatetimeFactory
 
 	public function createDatetimeFromMysqlFormat(
 		string $datetime,
-		string $mysqlDatetimeFormat = self::DEFAULT_MYSQL_DATETIME_FORMAT
+		string $mysqlDatetimeFormat = self::DEFAULT_MYSQL_DATETIME_FORMAT,
 	): DateTimeImmutable
 	{
 		$parsedDatetime = DateTimeImmutable::createFromFormat($mysqlDatetimeFormat, $datetime);
