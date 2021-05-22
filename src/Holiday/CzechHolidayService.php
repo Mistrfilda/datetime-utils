@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Holiday;
 
@@ -8,9 +8,9 @@ use DateTimeImmutable;
 
 class CzechHolidayService
 {
+
 	/**
 	 * List of all czech holidays, in format year => name => day, month
-	 * @var array<array<int, array<string, array{int, int}>>>
 	 */
 	private const DATA = [
 		2020 => [
@@ -120,13 +120,12 @@ class CzechHolidayService
 		],
 	];
 
-	/**
-	 * @var array<int, CzechHoliday>
-	 */
+	/** @var array<int, CzechHoliday> */
 	private array $currentYearHolidays = [];
 
 	/**
 	 * Simple cache
+	 *
 	 * @var array<int, array<int, CzechHoliday>>
 	 */
 	private array $proccessedHolidays = [];
@@ -157,12 +156,14 @@ class CzechHolidayService
 
 		$parsedHolidays = $this->getHolidays($year);
 		$this->proccessedHolidays[$year] = $parsedHolidays;
+
 		return $parsedHolidays;
 	}
 
 	public function isDateTimeHoliday(DateTimeImmutable $date): bool
 	{
 		$parsedDate = $date->setTime(0, 0, 0, 0);
+
 		return $this->checkDate($parsedDate, (int) $parsedDate->format('Y'));
 	}
 
@@ -178,6 +179,7 @@ class CzechHolidayService
 	public function getCzechHolidayByDatetime(DateTimeImmutable $date): ?CzechHoliday
 	{
 		$parsedDate = $date->setTime(0, 0, 0, 0);
+
 		return $this->getCzechHoliday($parsedDate, (int) $parsedDate->format('Y'));
 	}
 
@@ -228,13 +230,15 @@ class CzechHolidayService
 		foreach (self::DATA[$year] as $name => $dates) {
 			$czechHoliday = new CzechHoliday(
 				$name,
-				$now->setDate($year, $dates[1], $dates[0])
+				$now->setDate($year, $dates[1], $dates[0]),
 			);
 
 			$holidays[$czechHoliday->getTimestamp()] = $czechHoliday;
 		}
 
 		$this->proccessedHolidays[$year] = $holidays;
+
 		return $holidays;
 	}
+
 }

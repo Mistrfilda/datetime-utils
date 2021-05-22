@@ -1,13 +1,14 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Types;
 
 use Mistrfilda\Datetime\DatetimeException;
 
-class DatetimeImmutable extends \DateTimeImmutable
+class DateTimeImmutable extends \DateTimeImmutable
 {
+
 	public function getYear(): int
 	{
 		return (int) $this->format('Y');
@@ -40,14 +41,14 @@ class DatetimeImmutable extends \DateTimeImmutable
 
 	/**
 	 * @param string $modifier
-	 * @return $this
 	 * @throws DatetimeException
+	 * @return $this
 	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
 	 */
 	public function modify($modifier)
 	{
 		/** @var $this|false $modifiedDate */
-		$modifiedDate = @parent::modify($modifier);
+		$modifiedDate = parent::modify($modifier);
 		if ($modifiedDate === false) {
 			throw new DatetimeException('Invalid modify format passed');
 		}
@@ -121,7 +122,8 @@ class DatetimeImmutable extends \DateTimeImmutable
 		int $days = 0,
 		int $months = 0,
 		int $years = 0
-	): self {
+	): self
+	{
 		return $this->modify(
 			sprintf(
 				'+ %s years + %s months + %s days + %s hours + %s minutes',
@@ -129,8 +131,9 @@ class DatetimeImmutable extends \DateTimeImmutable
 				$months,
 				$days,
 				$hours,
-				$minutes
-			)
+				$minutes,
+			),
 		);
 	}
+
 }

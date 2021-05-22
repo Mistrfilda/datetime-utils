@@ -1,13 +1,16 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Tests\Unit;
 
 use Mistrfilda\Datetime\Holiday\CzechHolidayService;
+use function count;
+use function current;
 
 class CzechHolidayServiceTest extends BaseUnitTest
 {
+
 	private CzechHolidayService $czechHolidayService;
 
 	public function testHolidaysList(): void
@@ -22,7 +25,7 @@ class CzechHolidayServiceTest extends BaseUnitTest
 
 		self::assertCount(
 			count($this->czechHolidayService->getYearHolidays($this->now->getYear())),
-			$currentYearsHolidays
+			$currentYearsHolidays,
 		);
 
 		$currentElement = current($currentYearsHolidays);
@@ -30,7 +33,7 @@ class CzechHolidayServiceTest extends BaseUnitTest
 
 		self::assertSame(
 			(int) $currentElement->getDate()->format('Y'),
-			$this->now->getYear()
+			$this->now->getYear(),
 		);
 	}
 
@@ -38,58 +41,62 @@ class CzechHolidayServiceTest extends BaseUnitTest
 	{
 		self::assertFalse(
 			$this->czechHolidayService->isDateTimeHoliday(
-				$this->now->setDate(2020, 2, 12)
-			)
+				$this->now->setDate(2020, 2, 12),
+			),
 		);
 
 		self::assertTrue(
 			$this->czechHolidayService->isDateTimeHoliday(
-				$this->now->setDate(2020, 12, 24)
-			)
+				$this->now->setDate(2020, 12, 24),
+			),
 		);
 
 		self::assertTrue(
 			$this->czechHolidayService->isDateTimeHoliday(
-				$this->now->setDate(2026, 4, 6)
-			)
+				$this->now->setDate(2026, 4, 6),
+			),
 		);
 
 		self::assertFalse(
 			$this->czechHolidayService->isDateTimeHoliday(
-				$this->now->setDate(2020, 4, 5)
-			)
+				$this->now->setDate(2020, 4, 5),
+			),
 		);
 
 		self::assertTrue(
-			$this->czechHolidayService->isDateHoliday(24, 12, 2021)
+			$this->czechHolidayService->isDateHoliday(24, 12, 2021),
 		);
 
 		self::assertFalse(
-			$this->czechHolidayService->isDateHoliday(5, 3, 2022)
+			$this->czechHolidayService->isDateHoliday(5, 3, 2022),
 		);
 
 		self::assertNotNull(
 			$this->czechHolidayService->getCzechHolidayByDatetime(
-				$this->now->setDate(2025, 1, 1)
-			)
+				$this->now->setDate(2025, 1, 1),
+			),
 		);
 
 		self::assertNull(
 			$this->czechHolidayService->getCzechHolidayByDatetime(
-				$this->now->setDate(2025, 1, 2)
-			)
+				$this->now->setDate(2025, 1, 2),
+			),
 		);
 
 		self::assertNull(
 			$this->czechHolidayService->getCzechHolidayByDayMonthYear(
-				8, 3, 2021
-			)
+				8,
+				3,
+				2021,
+			),
 		);
 
 		self::assertNotNull(
 			$this->czechHolidayService->getCzechHolidayByDayMonthYear(
-				24, 12, 2021
-			)
+				24,
+				12,
+				2021,
+			),
 		);
 	}
 
@@ -98,4 +105,5 @@ class CzechHolidayServiceTest extends BaseUnitTest
 		parent::setUp();
 		$this->czechHolidayService = new CzechHolidayService();
 	}
+
 }

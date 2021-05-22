@@ -1,11 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime;
 
 class DayName
 {
+
 	public const MONDAY = 'Mon';
 
 	public const TUESDAY = 'Tue';
@@ -20,9 +21,9 @@ class DayName
 
 	public const SUNDAY = 'Sun';
 
-	/** @var string */
 	public const WEEKEND = [
 		self::SATURDAY,
 		self::SUNDAY,
 	];
+
 }

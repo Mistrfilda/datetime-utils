@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Tests\Unit;
 
@@ -11,13 +11,14 @@ use Mockery;
 
 class DatetimeFactoryTest extends BaseUnitTest
 {
+
 	private DatetimeFactory $datetimeFactory;
 
 	public function testCreateNow(): void
 	{
 		self::assertDatetimeImmutable(
 			$this->now,
-			$this->datetimeFactory->createNow()
+			$this->datetimeFactory->createNow(),
 		);
 	}
 
@@ -25,7 +26,7 @@ class DatetimeFactoryTest extends BaseUnitTest
 	{
 		self::assertDatetimeImmutable(
 			$this->now->setTime(0, 0, 0),
-			$this->datetimeFactory->createToday()
+			$this->datetimeFactory->createToday(),
 		);
 	}
 
@@ -33,7 +34,7 @@ class DatetimeFactoryTest extends BaseUnitTest
 	{
 		self::assertDatetimeImmutable(
 			$this->now,
-			$this->datetimeFactory->createFromTimestamp($this->now->getTimestamp())
+			$this->datetimeFactory->createFromTimestamp($this->now->getTimestamp()),
 		);
 	}
 
@@ -42,18 +43,15 @@ class DatetimeFactoryTest extends BaseUnitTest
 		$testDatetime = (new BuiltInDatetimeImmutable())->setTime(23, 0, 0);
 
 		$createdDatetime = $this->datetimeFactory->createDatetimeFromMysqlFormat(
-			$testDatetime->format(DatetimeFactory::DEFAULT_MYSQL_DATETIME_FORMAT)
+			$testDatetime->format(DatetimeFactory::DEFAULT_MYSQL_DATETIME_FORMAT),
 		);
 
-		self::assertDatetimeImmutable(
-			$testDatetime,
-			$createdDatetime
-		);
+		self::assertDatetimeImmutable($testDatetime, $createdDatetime);
 
 		self::assertException(function () use ($testDatetime): void {
 			$this->datetimeFactory->createDatetimeFromMysqlFormat(
 				$testDatetime->format(DatetimeFactory::DEFAULT_MYSQL_DATETIME_FORMAT),
-				'Yysf'
+				'Yysf',
 			);
 		}, DatetimeException::class, 'Can\'t create datetime from specified value and format');
 	}
@@ -67,4 +65,5 @@ class DatetimeFactoryTest extends BaseUnitTest
 
 		$this->datetimeFactory = $datetimeFactoryMock;
 	}
+
 }

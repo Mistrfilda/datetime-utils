@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Tests\Unit;
 
@@ -9,37 +9,38 @@ use Mistrfilda\Datetime\DatetimeException;
 
 class DatetimeImmutableTypeTest extends BaseUnitTest
 {
+
 	public function testHelperMethods(): void
 	{
 		$testDatetime = new BuiltInDatetimeImmutable();
 		self::assertSame(
 			(int) $testDatetime->format('Y'),
-			$this->now->getYear()
+			$this->now->getYear(),
 		);
 
 		self::assertSame(
 			(int) $testDatetime->format('m'),
-			$this->now->getMonth()
+			$this->now->getMonth(),
 		);
 
 		self::assertSame(
 			(int) $testDatetime->format('d'),
-			$this->now->getDay()
+			$this->now->getDay(),
 		);
 
 		self::assertSame(
 			(int) $testDatetime->format('H'),
-			$this->now->getHour()
+			$this->now->getHour(),
 		);
 
 		self::assertSame(
 			(int) $testDatetime->format('i'),
-			$this->now->getMinutes()
+			$this->now->getMinutes(),
 		);
 
 		self::assertSame(
 			(int) $testDatetime->format('s'),
-			$this->now->getSeconds()
+			$this->now->getSeconds(),
 		);
 	}
 
@@ -47,7 +48,7 @@ class DatetimeImmutableTypeTest extends BaseUnitTest
 	{
 		self::assertDatetimeImmutable(
 			$this->now->setTime(1, 0, 0),
-			$this->now->setTime(0, 0, 0)->modify('+ 1 hour')
+			$this->now->setTime(0, 0, 0)->modify('+ 1 hour'),
 		);
 
 		self::assertException(function (): void {
@@ -59,12 +60,12 @@ class DatetimeImmutableTypeTest extends BaseUnitTest
 	{
 		self::assertDatetimeImmutable(
 			$this->now->setTime(3, 33, 55),
-			$this->now->setTime(1, 33, 55)->addHoursToDatetime(2)
+			$this->now->setTime(1, 33, 55)->addHoursToDatetime(2),
 		);
 
 		self::assertDatetimeImmutable(
 			$this->now->setTime(1, 33, 55),
-			$this->now->setTime(3, 33, 55)->deductHoursFromDatetime(2)
+			$this->now->setTime(3, 33, 55)->deductHoursFromDatetime(2),
 		);
 	}
 
@@ -72,17 +73,17 @@ class DatetimeImmutableTypeTest extends BaseUnitTest
 	{
 		self::assertDatetimeImmutable(
 			$this->now->setTime(3, 55, 55),
-			$this->now->setTime(3, 33, 55)->addMinutesToDatetime(22)
+			$this->now->setTime(3, 33, 55)->addMinutesToDatetime(22),
 		);
 
 		self::assertDatetimeImmutable(
 			$this->now->setTime(5, 55, 55),
-			$this->now->setTime(3, 33, 55)->addMinutesToDatetime(142)
+			$this->now->setTime(3, 33, 55)->addMinutesToDatetime(142),
 		);
 
 		self::assertDatetimeImmutable(
 			$this->now->setTime(3, 33, 55),
-			$this->now->setTime(3, 55, 55)->deductMinutesFromDatetime(22)
+			$this->now->setTime(3, 55, 55)->deductMinutesFromDatetime(22),
 		);
 	}
 
@@ -90,12 +91,12 @@ class DatetimeImmutableTypeTest extends BaseUnitTest
 	{
 		self::assertDatetimeImmutable(
 			$this->now->setTime(3, 33, 55),
-			$this->now->setTime(3, 32, 0)->addSecondsToDatetime(115)
+			$this->now->setTime(3, 32, 0)->addSecondsToDatetime(115),
 		);
 
 		self::assertDatetimeImmutable(
 			$this->now->setTime(3, 32, 0),
-			$this->now->setTime(3, 33, 55)->deductSecondsFromDatetime(115)
+			$this->now->setTime(3, 33, 55)->deductSecondsFromDatetime(115),
 		);
 	}
 
@@ -105,26 +106,26 @@ class DatetimeImmutableTypeTest extends BaseUnitTest
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth(),
-				$this->now->getDay() + 5
+				$this->now->getDay() + 5,
 			),
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth(),
-				$this->now->getDay()
-			)->addDaysToDatetime(5)
+				$this->now->getDay(),
+			)->addDaysToDatetime(5),
 		);
 
 		self::assertDatetimeImmutable(
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth(),
-				$this->now->getDay() - 5
+				$this->now->getDay() - 5,
 			),
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth(),
-				$this->now->getDay()
-			)->deductDaysFromDatetime(5)
+				$this->now->getDay(),
+			)->deductDaysFromDatetime(5),
 		);
 	}
 
@@ -134,26 +135,26 @@ class DatetimeImmutableTypeTest extends BaseUnitTest
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth() + 3,
-				$this->now->getDay()
+				$this->now->getDay(),
 			),
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth(),
-				$this->now->getDay()
-			)->addMonthsToDatetime(3)
+				$this->now->getDay(),
+			)->addMonthsToDatetime(3),
 		);
 
 		self::assertDatetimeImmutable(
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth() - 3,
-				$this->now->getDay()
+				$this->now->getDay(),
 			),
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth(),
-				$this->now->getDay()
-			)->deductMonthsFromDatetime(3)
+				$this->now->getDay(),
+			)->deductMonthsFromDatetime(3),
 		);
 	}
 
@@ -163,26 +164,27 @@ class DatetimeImmutableTypeTest extends BaseUnitTest
 			$this->now->setDate(
 				$this->now->getYear() + 3,
 				$this->now->getMonth(),
-				$this->now->getDay()
+				$this->now->getDay(),
 			),
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth(),
-				$this->now->getDay()
-			)->addYearsToDatetime(3)
+				$this->now->getDay(),
+			)->addYearsToDatetime(3),
 		);
 
 		self::assertDatetimeImmutable(
 			$this->now->setDate(
 				$this->now->getYear() - 3,
 				$this->now->getMonth(),
-				$this->now->getDay()
+				$this->now->getDay(),
 			),
 			$this->now->setDate(
 				$this->now->getYear(),
 				$this->now->getMonth(),
-				$this->now->getDay()
-			)->deductYearsFromDatetime(3)
+				$this->now->getDay(),
+			)->deductYearsFromDatetime(3),
 		);
 	}
+
 }
