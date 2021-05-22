@@ -48,7 +48,7 @@ class DateTimeImmutable extends \DateTimeImmutable
 	public function modify($modifier)
 	{
 		/** @var $this|false $modifiedDate */
-		$modifiedDate = parent::modify($modifier);
+		$modifiedDate = @parent::modify($modifier);
 		if ($modifiedDate === false) {
 			throw new DatetimeException('Invalid modify format passed');
 		}
