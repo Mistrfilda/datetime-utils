@@ -3,7 +3,7 @@
 	"license": "MIT",
 	"description": "Simple datetime utils",
 	"require": {
-		"php": ">=7.4",
+		"php": ">=8.0",
 		"nette/utils": "^3.0"
 	},
 	"require-dev": {
