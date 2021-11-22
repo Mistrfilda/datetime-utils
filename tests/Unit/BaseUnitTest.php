@@ -5,17 +5,17 @@ declare(strict_types = 1);
 namespace Mistrfilda\Datetime\Tests\Unit;
 
 use Mistrfilda\Datetime\Tests\UpdatedTestCase;
-use Mistrfilda\Datetime\Types\DateTimeImmutable;
+use Mistrfilda\Datetime\Types\ImmutableDateTime;
 
 abstract class BaseUnitTest extends UpdatedTestCase
 {
 
-	protected DateTimeImmutable $now;
+	protected ImmutableDateTime $now;
 
 	protected function setUp(): void
 	{
 		parent::setUp();
-		$this->now = new DateTimeImmutable();
+		$this->now = new ImmutableDateTime();
 	}
 
 }

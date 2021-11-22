@@ -6,7 +6,7 @@ namespace Mistrfilda\Datetime\Types;
 
 use Mistrfilda\Datetime\DatetimeException;
 
-class DateTimeImmutable extends \DateTimeImmutable
+class ImmutableDateTime extends \DateTimeImmutable
 {
 
 	public function getYear(): int
