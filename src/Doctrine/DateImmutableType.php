@@ -12,7 +12,7 @@ use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType as DoctrineDatetimeImmutableType;
 use Mistrfilda\Datetime\DatetimeException;
 use Mistrfilda\Datetime\DatetimeFactory;
-use Mistrfilda\Datetime\Types\DateTimeImmutable;
+use Mistrfilda\Datetime\Types\ImmutableDateTime;
 
 class DateImmutableType extends DoctrineDatetimeImmutableType
 {
@@ -35,18 +35,18 @@ class DateImmutableType extends DoctrineDatetimeImmutableType
 		throw ConversionException::conversionFailedInvalidType(
 			$value,
 			$this->getName(),
-			['null', DateTimeImmutable::class],
+			['null', ImmutableDateTime::class],
 		);
 	}
 
 	/**
 	 * @param mixed $value
-	 * @return DateTime|BuiltInDatetimeImmutable|DateTimeInterface|DateTimeImmutable|mixed|null
+	 * @return DateTime|BuiltInDatetimeImmutable|DateTimeInterface|ImmutableDateTime|mixed|null
 	 * @throws ConversionException
 	 */
 	public function convertToPHPValue($value, AbstractPlatform $platform)
 	{
-		if ($value === null || $value instanceof DateTimeImmutable) {
+		if ($value === null || $value instanceof ImmutableDateTime) {
 			return $value;
 		}
 
