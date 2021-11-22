@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Mistrfilda\Datetime;
 
 use Mistrfilda\Datetime\Timezone\Timezone;
-use Mistrfilda\Datetime\Types\DateTimeImmutable;
+use Mistrfilda\Datetime\Types\ImmutableDateTime;
 use Throwable;
 
 class DatetimeFactory
@@ -20,32 +20,32 @@ class DatetimeFactory
 	public static function createFromFormat(
 		string $datetime,
 		string $format = self::DEFAULT_MYSQL_DATETIME_FORMAT,
-	): DateTimeImmutable
+	): ImmutableDateTime
 	{
-		$parsedDatetime = DateTimeImmutable::createFromFormat($format, $datetime);
+		$parsedDatetime = ImmutableDateTime::createFromFormat($format, $datetime);
 		if ($parsedDatetime === false) {
 			throw new DatetimeException('Can\'t create datetime from specified value and format');
 		}
 
-		return (new DateTimeImmutable('@' . $parsedDatetime->getTimestamp()))->setTimezone(
+		return (new ImmutableDateTime('@' . $parsedDatetime->getTimestamp()))->setTimezone(
 			$parsedDatetime->getTimezone(),
 		);
 	}
 
-	public function createNow(): DateTimeImmutable
+	public function createNow(): ImmutableDateTime
 	{
-		return new DateTimeImmutable();
+		return new ImmutableDateTime();
 	}
 
-	public function createToday(): DateTimeImmutable
+	public function createToday(): ImmutableDateTime
 	{
-		return (new DateTimeImmutable())->setTime(0, 0, 0);
+		return (new ImmutableDateTime())->setTime(0, 0, 0);
 	}
 
-	public function createFromTimestamp(int $timestamp, string $timezone = Timezone::UTC): DateTimeImmutable
+	public function createFromTimestamp(int $timestamp, string $timezone = Timezone::UTC): ImmutableDateTime
 	{
 		try {
-			return (new DateTimeImmutable('@' . $timestamp))->setTimezone(Timezone::createTimezone($timezone));
+			return (new ImmutableDateTime('@' . $timestamp))->setTimezone(Timezone::createTimezone($timezone));
 		} catch (Throwable $e) {
 			throw new DatetimeException($e->getMessage(), $e->getCode(), $e);
 		}
@@ -54,14 +54,14 @@ class DatetimeFactory
 	public function createDatetimeFromMysqlFormat(
 		string $datetime,
 		string $mysqlDatetimeFormat = self::DEFAULT_MYSQL_DATETIME_FORMAT,
-	): DateTimeImmutable
+	): ImmutableDateTime
 	{
-		$parsedDatetime = DateTimeImmutable::createFromFormat($mysqlDatetimeFormat, $datetime);
+		$parsedDatetime = ImmutableDateTime::createFromFormat($mysqlDatetimeFormat, $datetime);
 		if ($parsedDatetime === false) {
 			throw new DatetimeException('Can\'t create datetime from specified value and format');
 		}
 
-		return (new DateTimeImmutable('@' . $parsedDatetime->getTimestamp()))->setTimezone(
+		return (new ImmutableDateTime('@' . $parsedDatetime->getTimestamp()))->setTimezone(
 			$parsedDatetime->getTimezone(),
 		);
 	}
