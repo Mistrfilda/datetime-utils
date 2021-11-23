@@ -4,9 +4,10 @@ declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Types;
 
+use DateTimeImmutable;
 use Mistrfilda\Datetime\DatetimeException;
 
-class ImmutableDateTime extends \DateTimeImmutable
+class ImmutableDateTime extends DateTimeImmutable
 {
 
 	public function getYear(): int
