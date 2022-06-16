@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Tests\Unit\Doctrine;
 
+use DateTimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Types\ConversionException;
@@ -36,7 +37,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 				$type->convertToDatabaseValue('12', $this->platform);
 			},
 			ConversionException::class,
-			'Could not convert PHP value \'12\' to type datetime_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\DateTimeImmutable',
+			'Could not convert PHP value \'12\' to type datetime_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\ImmutableDateTime',
 		);
 
 		$datetimeValue = $type->convertToPHPValue(
@@ -44,6 +45,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 			$this->platform,
 		);
 
+		self::assertTrue($datetimeValue instanceof DateTimeImmutable);
 		self::assertDatetimeImmutable($this->now, $datetimeValue);
 		self::assertNull($type->convertToPHPValue(null, $this->platform));
 
@@ -75,7 +77,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 				$type->convertToDatabaseValue('12', $this->platform);
 			},
 			ConversionException::class,
-			'Could not convert PHP value \'12\' to type datetime_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\DateTimeImmutable',
+			'Could not convert PHP value \'12\' to type datetime_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\ImmutableDateTime',
 		);
 
 		$datetimeValue = $type->convertToPHPValue(
@@ -83,6 +85,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 			$this->platform,
 		);
 
+		self::assertTrue($datetimeValue instanceof DateTimeImmutable);
 		self::assertDatetimeImmutable($this->now, $datetimeValue);
 		self::assertNull($type->convertToPHPValue(null, $this->platform));
 
