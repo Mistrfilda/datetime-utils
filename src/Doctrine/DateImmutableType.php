@@ -44,8 +44,16 @@ class DateImmutableType extends DoctrineDatetimeImmutableType
 			return $value;
 		}
 
+		if (is_string($value) === false) {
+			throw ConversionException::conversionFailedFormat(
+				$value,
+				$this->getName(),
+				$platform->getDateFormatString(),
+			);
+		}
+
 		try {
-			return DatetimeFactory::createFromFormat($value, $platform->getDateTimeFormatString());
+			return DatetimeFactory::createFromFormat($value, $platform->getDateFormatString());
 		} catch (DatetimeException) {
 			throw ConversionException::conversionFailedFormat(
 				$value,

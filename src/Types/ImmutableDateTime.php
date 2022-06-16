@@ -41,12 +41,10 @@ class ImmutableDateTime extends DateTimeImmutable
 	}
 
 	/**
-	 * @param string $modifier
-	 * @throws DatetimeException
 	 * @return $this
-	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+	 * @throws DatetimeException
 	 */
-	public function modify($modifier)
+	public function modify(string $modifier): self
 	{
 		/** @var $this|false $modifiedDate */
 		$modifiedDate = @parent::modify($modifier);

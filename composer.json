@@ -3,16 +3,16 @@
 	"license": "MIT",
 	"description": "Simple datetime utils",
 	"require": {
-		"php": ">=8.0",
+		"php": ">=8.1",
 		"nette/utils": "^3.0"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "^0.12",
+		"phpstan/phpstan": "^1.0",
 		"phpstan/extension-installer": "^1.0",
-		"phpstan/phpstan-strict-rules": "^0.12",
-		"phpstan/phpstan-mockery": "^0.12.3",
-		"phpstan/phpstan-phpunit": "^0.12.16",
-		"phpstan/phpstan-deprecation-rules": "^0.12.5",
+		"phpstan/phpstan-strict-rules": "^1.0",
+		"phpstan/phpstan-mockery": "^1.0",
+		"phpstan/phpstan-phpunit": "^1.0",
+		"phpstan/phpstan-deprecation-rules": "^1.0",
 		"tracy/tracy": "^2.6",
 		"roave/security-advisories": "dev-master",
 		"mockery/mockery": "^1.2",
@@ -49,5 +49,11 @@
 			"@cs",
 			"@test-unit"
 		]
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": true
+		}
 	}
 }
