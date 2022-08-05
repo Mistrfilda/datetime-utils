@@ -81,7 +81,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 		);
 
 		$datetimeValue = $type->convertToPHPValue(
-			$this->now->format($this->platform->getDateFormatString()),
+			$this->now->format($this->platform->getDateTimeFormatString()),
 			$this->platform,
 		);
 
