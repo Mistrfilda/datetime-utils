@@ -53,7 +53,7 @@ class DateImmutableType extends DoctrineDatetimeImmutableType
 		}
 
 		try {
-			return DatetimeFactory::createFromFormat($value, $platform->getDateFormatString());
+			return DatetimeFactory::createFromFormat($value, $platform->getDateTimeFormatString());
 		} catch (DatetimeException) {
 			throw ConversionException::conversionFailedFormat(
 				$value,
