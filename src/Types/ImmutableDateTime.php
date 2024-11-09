@@ -135,4 +135,8 @@ class ImmutableDateTime extends DateTimeImmutable
 		);
 	}
 
+	public function isWeekend(): bool
+	{
+		return $this->format('N') >= 6;
+	}
 }
