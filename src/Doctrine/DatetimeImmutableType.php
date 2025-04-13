@@ -8,8 +8,10 @@ use DateTimeImmutable as BuiltInDatetimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType as DoctrineDatetimeImmutableType;
+use Doctrine\DBAL\Types\Types;
 use Mistrfilda\Datetime\DatetimeException;
 use Mistrfilda\Datetime\DatetimeFactory;
+use Mistrfilda\Datetime\Helper\ConversionExceptionHelper;
 use Mistrfilda\Datetime\Types\ImmutableDateTime;
 
 class DatetimeImmutableType extends DoctrineDatetimeImmutableType
@@ -18,7 +20,7 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 	/**
 	 * @throws ConversionException
 	 */
-	public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed
+	public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): string|null
 	{
 		if ($value === null) {
 			return $value;
@@ -28,9 +30,9 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 			return $value->format($platform->getDateTimeFormatString());
 		}
 
-		throw ConversionException::conversionFailedInvalidType(
+		throw ConversionExceptionHelper::conversionFailedInvalidType(
 			$value,
-			$this->getName(),
+			Types::DATETIME_IMMUTABLE,
 			['null', ImmutableDateTime::class],
 		);
 	}
@@ -38,16 +40,16 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 	/**
 	 * @throws ConversionException
 	 */
-	public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed
+	public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ImmutableDateTime|null
 	{
 		if ($value === null || $value instanceof ImmutableDateTime) {
 			return $value;
 		}
 
 		if (is_string($value) === false) {
-			throw ConversionException::conversionFailedFormat(
+			throw ConversionExceptionHelper::conversionFailedFormat(
 				$value,
-				$this->getName(),
+				Types::DATETIME_IMMUTABLE,
 				$platform->getDateFormatString(),
 			);
 		}
@@ -55,9 +57,9 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 		try {
 			return DatetimeFactory::createFromFormat($value, $platform->getDateTimeFormatString());
 		} catch (DatetimeException) {
-			throw ConversionException::conversionFailedFormat(
+			throw ConversionExceptionHelper::conversionFailedFormat(
 				$value,
-				$this->getName(),
+				Types::DATETIME_IMMUTABLE,
 				$platform->getDateTimeFormatString(),
 			);
 		}

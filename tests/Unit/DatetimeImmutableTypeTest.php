@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Tests\Unit;
 
+use DateMalformedStringException;
 use DateTimeImmutable as BuiltInDatetimeImmutable;
-use Mistrfilda\Datetime\DatetimeException;
 
 class DatetimeImmutableTypeTest extends BaseUnitTest
 {
@@ -53,7 +53,9 @@ class DatetimeImmutableTypeTest extends BaseUnitTest
 
 		self::assertException(function (): void {
 			$this->now->modify('dasdsa');
-		}, DatetimeException::class, 'Invalid modify format passed');
+		},
+			DateMalformedStringException::class,
+			'DateTimeImmutable::modify(): Failed to parse time string (dasdsa) at position 0 (d): The timezone could not be found in the database');
 	}
 
 	public function testAddHours(): void

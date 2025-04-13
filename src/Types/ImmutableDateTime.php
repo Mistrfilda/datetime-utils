@@ -6,6 +6,7 @@ namespace Mistrfilda\Datetime\Types;
 
 use DateTimeImmutable;
 use Mistrfilda\Datetime\DatetimeException;
+use function assert;
 
 class ImmutableDateTime extends DateTimeImmutable
 {
@@ -46,12 +47,8 @@ class ImmutableDateTime extends DateTimeImmutable
 	 */
 	public function modify(string $modifier): self
 	{
-		/** @var $this|false $modifiedDate */
 		$modifiedDate = @parent::modify($modifier);
-		if ($modifiedDate === false) {
-			throw new DatetimeException('Invalid modify format passed');
-		}
-
+		assert($modifiedDate instanceof $this);
 		return $modifiedDate;
 	}
 
@@ -139,4 +136,5 @@ class ImmutableDateTime extends DateTimeImmutable
 	{
 		return $this->format('N') >= 6;
 	}
+
 }
