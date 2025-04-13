@@ -28,6 +28,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 			$dbValue,
 		);
 
+		//@phpstan-ignore-next-line
 		self::assertNull(
 			$type->convertToDatabaseValue(null, $this->platform),
 		);
@@ -68,6 +69,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 			$dbValue,
 		);
 
+		//@phpstan-ignore-next-line
 		self::assertNull(
 			$type->convertToDatabaseValue(null, $this->platform),
 		);
