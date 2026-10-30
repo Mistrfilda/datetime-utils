@@ -7,14 +7,14 @@ namespace Mistrfilda\Datetime\Doctrine;
 use DateTimeImmutable as BuiltInDatetimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\DateTimeImmutableType as DoctrineDatetimeImmutableType;
+use Doctrine\DBAL\Types\DateImmutableType as DoctrineDateImmutableType;
 use Doctrine\DBAL\Types\Types;
 use Mistrfilda\Datetime\DatetimeException;
 use Mistrfilda\Datetime\DatetimeFactory;
 use Mistrfilda\Datetime\Helper\ConversionExceptionHelper;
 use Mistrfilda\Datetime\Types\ImmutableDateTime;
 
-class DateImmutableType extends DoctrineDatetimeImmutableType
+class DateImmutableType extends DoctrineDateImmutableType
 {
 
 	/**
@@ -32,7 +32,7 @@ class DateImmutableType extends DoctrineDatetimeImmutableType
 
 		throw ConversionExceptionHelper::conversionFailedInvalidType(
 			$value,
-			Types::DATETIME_IMMUTABLE,
+			Types::DATE_IMMUTABLE,
 			['null', ImmutableDateTime::class],
 		);
 	}
@@ -49,17 +49,17 @@ class DateImmutableType extends DoctrineDatetimeImmutableType
 		if (is_string($value) === false) {
 			throw ConversionExceptionHelper::conversionFailedFormat(
 				$value,
-				Types::DATETIME_IMMUTABLE,
+				Types::DATE_IMMUTABLE,
 				$platform->getDateFormatString(),
 			);
 		}
 
 		try {
-			return DatetimeFactory::createFromFormat($value, $platform->getDateTimeFormatString());
+			return DatetimeFactory::createFromFormat($value, '!' . $platform->getDateFormatString());
 		} catch (DatetimeException) {
 			throw ConversionExceptionHelper::conversionFailedFormat(
 				$value,
-				Types::DATETIME_IMMUTABLE,
+				Types::DATE_IMMUTABLE,
 				$platform->getDateFormatString(),
 			);
 		}

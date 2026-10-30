@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Mistrfilda\Datetime\Types;
 
+use DateMalformedStringException;
 use DateTimeImmutable;
-use Mistrfilda\Datetime\DatetimeException;
 use function assert;
 
 class ImmutableDateTime extends DateTimeImmutable
@@ -43,11 +43,11 @@ class ImmutableDateTime extends DateTimeImmutable
 
 	/**
 	 * @return $this
-	 * @throws DatetimeException
+	 * @throws DateMalformedStringException
 	 */
 	public function modify(string $modifier): self
 	{
-		$modifiedDate = @parent::modify($modifier);
+		$modifiedDate = parent::modify($modifier);
 		assert($modifiedDate instanceof $this);
 		return $modifiedDate;
 	}

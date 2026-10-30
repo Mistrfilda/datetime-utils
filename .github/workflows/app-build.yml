@@ -2,27 +2,27 @@ name: Datetime utils build
 on: [ push, pull_request ]
 jobs:
     app_build:
-        name: Datetime utils build
+        name: PHP ${{ matrix.php-versions }}
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
-                php-versions: [ '8.4' ]
+                php-versions: [ '8.4', '8.5' ]
         steps:
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v6
             -   name: Setup PHP, with composer and extensions
                 uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
                 with:
                     php-version: ${{ matrix.php-versions }}
-                    extensions: mbstring, xml, ctype, iconv, intl, mysql, pdo_mysql
-                    coverage: pcov
+                    extensions: calendar, mbstring, xml, ctype, iconv, intl
+                    coverage: none
                     tools: composer:v2
             -   name: Install Composer dependencies
                 run: |
                     composer install --no-progress --prefer-dist --optimize-autoloader --ansi
             -   name: Create temp dir for tools
                 run: |
-                    mkdir tmp
+                    mkdir -p tmp
             -   name: Run checks
                 run: composer build-all

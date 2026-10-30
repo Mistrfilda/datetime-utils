@@ -7,7 +7,7 @@ BASED ON https://github.com/orisai/coding-standard-php
 
     <!-- Configure ruleset -->
     <config name="installed_paths" value="./../../slevomat/coding-standard/"/>
-    <config name="php_version" value="80000"/>
+    <config name="php_version" value="80400"/>
 
     <arg name="cache" value="./tmp/codesniffer.dat"/>
 

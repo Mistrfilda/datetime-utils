@@ -50,7 +50,7 @@ class DatetimeImmutableType extends DoctrineDatetimeImmutableType
 			throw ConversionExceptionHelper::conversionFailedFormat(
 				$value,
 				Types::DATETIME_IMMUTABLE,
-				$platform->getDateFormatString(),
+				$platform->getDateTimeFormatString(),
 			);
 		}
 

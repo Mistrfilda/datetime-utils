@@ -1,10 +1,24 @@
-<phpunit bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true">
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/13.4/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         cacheDirectory="tmp/phpunit"
+         failOnAllIssues="true"
+         displayDetailsOnAllIssues="true">
     <testsuites>
         <testsuite name="unit">
             <directory>tests/Unit</directory>
-        </testsuite>
-        <testsuite name="integration">
-            <directory>tests/Integration</directory>
+            <exclude>tests/Unit/BaseUnitTest.php</exclude>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="date.timezone" value="UTC"/>
+    </php>
 </phpunit>

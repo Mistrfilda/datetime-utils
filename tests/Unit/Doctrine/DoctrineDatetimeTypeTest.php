@@ -18,6 +18,16 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 	// phpcs:disable SlevomatCodingStandard.Files.LineLength.LineTooLong
 	protected AbstractPlatform $platform;
 
+	public function testDateTypeRoundTrip(): void
+	{
+		$type = new DateImmutableType();
+		$date = $type->convertToPHPValue('2026-10-30', $this->platform);
+		self::assertNotNull($date);
+		self::assertSame('2026-10-30 00:00:00.000000', $date->format('Y-m-d H:i:s.u'));
+		self::assertSame('2026-10-30', $type->convertToDatabaseValue($date, $this->platform));
+		self::assertSame('DATE', $type->getSQLDeclaration([], $this->platform));
+	}
+
 	public function testDateTimeImmutableType(): void
 	{
 		$type = new DatetimeImmutableType();
@@ -79,16 +89,16 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 				$type->convertToDatabaseValue('12', $this->platform);
 			},
 			ConversionException::class,
-			'Could not convert PHP value \'12\' to type datetime_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\ImmutableDateTime',
+			'Could not convert PHP value \'12\' to type date_immutable. Expected one of the following types: null, Mistrfilda\Datetime\Types\ImmutableDateTime',
 		);
 
 		$datetimeValue = $type->convertToPHPValue(
-			$this->now->format($this->platform->getDateTimeFormatString()),
+			$this->now->format($this->platform->getDateFormatString()),
 			$this->platform,
 		);
 
 		self::assertTrue($datetimeValue instanceof DateTimeImmutable);
-		self::assertDatetimeImmutable($this->now, $datetimeValue);
+		self::assertDatetimeImmutable($this->now->setTime(0, 0), $datetimeValue);
 		self::assertNull($type->convertToPHPValue(null, $this->platform));
 
 		self::assertException(
@@ -96,7 +106,7 @@ class DoctrineDatetimeTypeTest extends BaseUnitTest
 				$type->convertToPHPValue('12', $this->platform);
 			},
 			ConversionException::class,
-			'Could not convert database value "12" to Doctrine Type datetime_immutable. Expected format: Y-m-d',
+			'Could not convert database value "12" to Doctrine Type date_immutable. Expected format: Y-m-d',
 		);
 	}
 

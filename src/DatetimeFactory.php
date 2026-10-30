@@ -7,6 +7,7 @@ namespace Mistrfilda\Datetime;
 use Mistrfilda\Datetime\Timezone\Timezone;
 use Mistrfilda\Datetime\Types\ImmutableDateTime;
 use Throwable;
+use ValueError;
 
 class DatetimeFactory
 {
@@ -22,14 +23,17 @@ class DatetimeFactory
 		string $format = self::DEFAULT_MYSQL_DATETIME_FORMAT,
 	): ImmutableDateTime
 	{
-		$parsedDatetime = ImmutableDateTime::createFromFormat($format, $datetime);
-		if ($parsedDatetime === false) {
+		try {
+			$parsedDatetime = ImmutableDateTime::createFromFormat($format, $datetime);
+		} catch (ValueError $e) {
+			throw new DatetimeException('Can\'t create datetime from specified value and format', 0, $e);
+		}
+
+		if ($parsedDatetime instanceof ImmutableDateTime === false || ImmutableDateTime::getLastErrors() !== false) {
 			throw new DatetimeException('Can\'t create datetime from specified value and format');
 		}
 
-		return (new ImmutableDateTime('@' . $parsedDatetime->getTimestamp()))->setTimezone(
-			$parsedDatetime->getTimezone(),
-		);
+		return $parsedDatetime;
 	}
 
 	public function createNow(): ImmutableDateTime
@@ -56,14 +60,7 @@ class DatetimeFactory
 		string $mysqlDatetimeFormat = self::DEFAULT_MYSQL_DATETIME_FORMAT,
 	): ImmutableDateTime
 	{
-		$parsedDatetime = ImmutableDateTime::createFromFormat($mysqlDatetimeFormat, $datetime);
-		if ($parsedDatetime === false) {
-			throw new DatetimeException('Can\'t create datetime from specified value and format');
-		}
-
-		return (new ImmutableDateTime('@' . $parsedDatetime->getTimestamp()))->setTimezone(
-			$parsedDatetime->getTimezone(),
-		);
+		return self::createFromFormat($datetime, $mysqlDatetimeFormat);
 	}
 
 }
