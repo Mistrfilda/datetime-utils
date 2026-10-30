@@ -67,7 +67,7 @@ abstract class UpdatedTestCase extends TestCase
 		DateTimeImmutable $actual,
 	): void
 	{
-		self::assertSame($expected->getTimestamp(), $actual->getTimestamp());
+		self::assertSame($expected->format('U.u'), $actual->format('U.u'));
 		self::assertSame($expected->getTimezone()->getName(), $actual->getTimezone()->getName());
 	}
 

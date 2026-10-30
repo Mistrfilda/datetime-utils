@@ -54,62 +54,62 @@ class ImmutableDateTime extends DateTimeImmutable
 
 	public function addHoursToDatetime(int $hours): self
 	{
-		return $this->modify(sprintf('+ %s hours', $hours));
+		return $this->modify(sprintf('%+d hours', $hours));
 	}
 
 	public function addMinutesToDatetime(int $minutes): self
 	{
-		return $this->modify(sprintf('+ %s minutes', $minutes));
+		return $this->modify(sprintf('%+d minutes', $minutes));
 	}
 
 	public function addSecondsToDatetime(int $seconds): self
 	{
-		return $this->modify(sprintf('+ %s seconds', $seconds));
+		return $this->modify(sprintf('%+d seconds', $seconds));
 	}
 
 	public function addMonthsToDatetime(int $months): self
 	{
-		return $this->modify(sprintf('+ %s months', $months));
+		return $this->modify(sprintf('%+d months', $months));
 	}
 
 	public function addDaysToDatetime(int $days): self
 	{
-		return $this->modify(sprintf('+ %s days', $days));
+		return $this->modify(sprintf('%+d days', $days));
 	}
 
 	public function addYearsToDatetime(int $years): self
 	{
-		return $this->modify(sprintf('+ %s years', $years));
+		return $this->modify(sprintf('%+d years', $years));
 	}
 
 	public function deductYearsFromDatetime(int $years): self
 	{
-		return $this->modify(sprintf('- %s years', $years));
+		return $this->modify(sprintf('%+d years', -$years));
 	}
 
 	public function deductHoursFromDatetime(int $hours): self
 	{
-		return $this->modify(sprintf('- %s hours', $hours));
+		return $this->modify(sprintf('%+d hours', -$hours));
 	}
 
 	public function deductMinutesFromDatetime(int $minutes): self
 	{
-		return $this->modify(sprintf('- %s minutes', $minutes));
+		return $this->modify(sprintf('%+d minutes', -$minutes));
 	}
 
 	public function deductSecondsFromDatetime(int $seconds): self
 	{
-		return $this->modify(sprintf('- %s seconds', $seconds));
+		return $this->modify(sprintf('%+d seconds', -$seconds));
 	}
 
 	public function deductMonthsFromDatetime(int $months): self
 	{
-		return $this->modify(sprintf('- %s months', $months));
+		return $this->modify(sprintf('%+d months', -$months));
 	}
 
 	public function deductDaysFromDatetime(int $days): self
 	{
-		return $this->modify(sprintf('- %s days', $days));
+		return $this->modify(sprintf('%+d days', -$days));
 	}
 
 	public function addToDatetime(
@@ -122,7 +122,7 @@ class ImmutableDateTime extends DateTimeImmutable
 	{
 		return $this->modify(
 			sprintf(
-				'+ %s years + %s months + %s days + %s hours + %s minutes',
+				'%+d years %+d months %+d days %+d hours %+d minutes',
 				$years,
 				$months,
 				$days,
