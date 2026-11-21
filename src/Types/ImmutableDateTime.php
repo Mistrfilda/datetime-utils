@@ -6,7 +6,6 @@ namespace Mistrfilda\Datetime\Types;
 
 use DateMalformedStringException;
 use DateTimeImmutable;
-use function assert;
 
 class ImmutableDateTime extends DateTimeImmutable
 {
@@ -42,14 +41,11 @@ class ImmutableDateTime extends DateTimeImmutable
 	}
 
 	/**
-	 * @return $this
 	 * @throws DateMalformedStringException
 	 */
-	public function modify(string $modifier): self
+	public function modify(string $modifier): static
 	{
-		$modifiedDate = parent::modify($modifier);
-		assert($modifiedDate instanceof $this);
-		return $modifiedDate;
+		return parent::modify($modifier);
 	}
 
 	public function addHoursToDatetime(int $hours): self

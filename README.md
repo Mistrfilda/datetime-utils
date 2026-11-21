@@ -7,7 +7,7 @@ convenient date arithmetic, access to individual date components and timezone he
 ## Installation
 
 Requires PHP 8.4 or newer and the `calendar` extension (`ext-calendar`).
-Tested on PHP 8.4 and 8.5.
+Tested on PHP 8.4, 8.5, and 8.6.
 
 ```bash
 composer require mistrfilda/datetime
